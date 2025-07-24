@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Index of /gojol</title>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: monospace; padding: 20px; background-color: #f9f9f9; }
+    a { display: block; color: #007BFF; text-decoration: none; margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <h2>Index of /waz</h2>
+  <div id="file-list">Loading...</div>
+
+  <script>
+    // GitHub repo info
+    const owner = "mrpupu2019";      // ← Replace this
+    const repo = "waz";          // ← Replace this
+    const folder = "";                  // root folder
+
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${folder}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(files => {
+        const list = document.getElementById("file-list");
+        list.innerHTML = '';
+        files.forEach(file => {
+          if (file.name.endsWith(".mp3")) {
+            const link = document.createElement("a");
+            link.href = `https://${owner}.github.io/${repo}/${file.name}`;
+            link.textContent = file.name;
+            list.appendChild(link);
+          }
+        });
+      })
+      .catch(err => {
+        document.getElementById("file-list").innerHTML = "Error loading files.";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
